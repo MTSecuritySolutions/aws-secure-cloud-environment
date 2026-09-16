@@ -59,8 +59,9 @@ encryption/         Encryption and key management
 testing/            Security testing and validation
 Project Status
 
-Day 1 — Foundation and Repository Setup
+## Day 1 — Foundation and Repository Setup
 
+### Configuration
 AWS account configured
 Root account MFA enabled
 IAM administrative user configured
@@ -79,3 +80,23 @@ Encryption and logging
 Monitoring and security services
 Security testing
 Final security review
+
+
+## Day 2 – VPC & Network Security
+
+Built a segmented AWS network architecture using a custom VPC with separate public and private subnets.
+
+### Configuration
+- Created `SecureCloud-VPC` using CIDR block `10.0.0.0/16`
+- Created public subnet `10.0.1.0/24` in `us-west-2a`
+- Created private subnet `10.0.2.0/24` in `us-west-2b`
+- Created and attached an Internet Gateway
+- Configured a public route table with internet access through the Internet Gateway
+- Kept the private subnet without a direct internet route
+- Created separate security groups for public and private resources
+- Applied least-privilege principles by allowing no unnecessary inbound traffic
+
+### Security Design
+The environment uses network segmentation to separate public-facing resources from private resources. Internet-bound traffic from the public subnet is routed through the Internet Gateway, while the private subnet remains isolated from direct internet access.
+
+Security groups were configured with no inbound access by default, reducing the attack surface until specific application requirements are introduced.
