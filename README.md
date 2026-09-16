@@ -100,3 +100,21 @@ Built a segmented AWS network architecture using a custom VPC with separate publ
 The environment uses network segmentation to separate public-facing resources from private resources. Internet-bound traffic from the public subnet is routed through the Internet Gateway, while the private subnet remains isolated from direct internet access.
 
 Security groups were configured with no inbound access by default, reducing the attack surface until specific application requirements are introduced.
+
+
+## Day 3 – Logging, Monitoring & Security Alerts
+
+- Created a multi-region AWS CloudTrail trail (`SecureCloud-Trail`) to record AWS account activity and API events.
+- Configured a dedicated S3 bucket for CloudTrail log storage.
+- Verified S3 server-side encryption (SSE-S3) and Block Public Access.
+- Integrated CloudTrail with CloudWatch Logs using `SecureCloud-CloudTrail-Logs`.
+- Created the `FailedConsoleLoginFilter` metric filter to detect failed AWS Management Console authentication attempts.
+- Created the custom `FailedConsoleLogins` CloudWatch metric.
+- Configured the `SecureCloud-Failed-Console-Login-Alarm` to trigger when a failed console login is detected.
+- Configured Amazon SNS email notifications through `SecureCloud-Security-Alerts`.
+- Simulated a failed IAM login and successfully received the CloudWatch security alert via email.
+
+### Validation
+Successfully verified the end-to-end monitoring pipeline:
+
+CloudTrail → CloudWatch Logs → Metric Filter → CloudWatch Alarm → SNS → Email Alert
